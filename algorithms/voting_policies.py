@@ -26,7 +26,6 @@ def borda_count(order_labels, k):
     return labels[np.argmax(votes)]
 
 
-
 def number_intersections(counts):
     max_value_counts = max(counts)
     intersection = 0
