@@ -17,7 +17,14 @@ def modified_plurality(order_labels, k):
 
 
 def borda_count(order_labels, k):
-    pass
+    labels, counts = np.unique(order_labels, return_counts=True)
+    votes = np.zeros(len(counts))
+    for i in range(len(order_labels)):
+        index = np.where(labels == order_labels[i])[0][0]
+        votes[index] = votes[index] + (k-i)
+
+    return labels[np.argmax(votes)]
+
 
 
 def number_intersections(counts):
