@@ -92,12 +92,17 @@ def main():
     # ---------------------------------------------------------------- Reading K value and distance metric from keyboard
     print('\n'+'\033[1m'+'Which K value do you want to use?'+'\033[0m')
     k = int(input('Insert a number between 1-10: '))
-    print('\n'+'\033[1m'+'Which distance function do you want to use?'+'\033[0m'+'\n1: Euclidean\n2: Manhattan')
-    dist = int(input('Insert a number between 1-2: '))
+    print('\n'+'\033[1m'+'Which distance function do you want to use?'+'\033[0m'+'\n1: Euclidean\n2: Manhattan'
+                                                                                '\n3: Cosine\n4: Canberra')
+    dist = int(input('Insert a number between 1-4: '))
     if dist == 1:
         metric = 'euclidean'
     elif dist == 2:
         metric = 'manhattan'
+    elif dist == 3:
+        metric = 'cosine'
+    elif dist == 4:
+        metric = 'canberra'
     print('\n'+'\033[1m'+'Which voting policy do you want to use?'+'\033[0m'+'\n1: Most voted solution\n2: Modified '
                                                                              'Plurality\n3: Borda Count')
     voting_policy = int(input('Insert a number between 1-3: '))
