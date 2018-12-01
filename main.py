@@ -91,7 +91,7 @@ def main():
 
     # ---------------------------------------------------------------- Reading K value and distance metric from keyboard
     print('\n'+'\033[1m'+'Which K value do you want to use?'+'\033[0m')
-    k = int(input('Insert a number between 1-10: '))
+    k = int(input('Insert a number between 1-20: '))
     print('\n'+'\033[1m'+'Which distance function do you want to use?'+'\033[0m'+'\n1: Euclidean\n2: Manhattan')
     dist = int(input('Insert a number between 1-2: '))
     if dist == 1:

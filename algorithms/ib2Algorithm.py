@@ -44,8 +44,8 @@ class ib2Algorithm():
     def classify(self, tst_data):
         self.tst_labels = np.zeros((tst_data.shape[0], 1))
         for i in range(tst_data.shape[0]):
-            a = tst_data[i,:]
             neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_sample) for trn_sample in self.trn_data],
                                             kth=self.k-1)[:self.k]
             labels, counts = np.unique(self.trn_labels[neighbor_idxs], return_counts=True)
-            self.tst_labels[i] = self.vp(labels, counts)
+            order_labels = self.trn_labels[neighbor_idxs]
+            self.tst_labels[i] = self.vp(order_labels, self.k)
