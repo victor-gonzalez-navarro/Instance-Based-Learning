@@ -1,16 +1,14 @@
 import os
 import re
 import time
-import math
 
-import pandas as pd
-import numpy as np
 from scipy.io import arff
 
 from preproc.preprocess import Preprocess
 from algorithms.ib1Algorithm import ib1Algorithm
 from algorithms.ib2Algorithm import ib2Algorithm
 from algorithms.ib3Algorithm import ib3Algorithm
+from algorithms.auxiliary_methods import *
 from sklearn.preprocessing.label import LabelEncoder
 
 
@@ -35,25 +33,6 @@ def obtain_arffs(path):
         arffs_dic[folder] = folds_dic
     return arffs_dic
 
-def trn_tst_idxs(ref_data, dataset):
-    trn_tst_dic = {}
-
-    for key, fold_data in dataset.items():
-
-        foldata_trn = pd.DataFrame(fold_data[0])
-        foldata_trn = foldata_trn.fillna('nonna')
-        foldata_trn = foldata_trn.values
-
-        foldata_tst = pd.DataFrame(fold_data[1])
-        foldata_tst = foldata_tst.fillna('nonna')
-        foldata_tst = foldata_tst.values
-
-        trn_idxs = [np.where((ref_data == sample).all(axis=1))[0][0] for sample in foldata_trn]
-        tst_idxs = [np.where((ref_data == sample).all(axis=1))[0][0] for sample in foldata_tst]
-        trn_tst_dic[key] = []
-        trn_tst_dic[key].append(trn_idxs)
-        trn_tst_dic[key].append(tst_idxs)
-    return trn_tst_dic
 
 # ----------------------------------------------------------------------------------------------------------------- Main
 def main():
@@ -89,27 +68,12 @@ def main():
     accuracies = []
     fold_number = 0
 
-    # ---------------------------------------------------------------- Reading K value and distance metric from keyboard
-    print('\n'+'\033[1m'+'Which K value do you want to use?'+'\033[0m')
-    k = int(input('Insert a number between 1-20: '))
-    print('\n'+'\033[1m'+'Which distance function do you want to use?'+'\033[0m'+'\n1: Euclidean\n2: Manhattan')
-    dist = int(input('Insert a number between 1-2: '))
-    if dist == 1:
-        metric = 'euclidean'
-    elif dist == 2:
-        metric = 'manhattan'
-    print('\n'+'\033[1m'+'Which voting policy do you want to use?'+'\033[0m'+'\n1: Most voted solution\n2: Modified '
-                                                                             'Plurality\n3: Borda Count')
-    voting_policy = int(input('Insert a number between 1-3: '))
-    print('')
-    if voting_policy == 1:
-        voting_policy = 'most_voted'
-    elif voting_policy == 2:
-        voting_policy = 'modified_plurality'
-    elif voting_policy == 3:
-        voting_policy = 'borda_count'
+    # --------------------------------------------------------------------------------- Reading parameters from keyboard
+    k, metric, voting_policy = read_keyboard()
 
     # -------------------------------------------------------------------------------------------- Supervised classifier
+    # Compute accuracy for each fold
+    start_time = time.time()
     for trn_idxs, tst_idxs in trn_tst_dic.values():
         fold_number = fold_number +1
         print('Computing accuracy for fold number '+str(fold_number))
@@ -126,7 +90,9 @@ def main():
 
     mean_accuracies = str(round(np.mean(accuracies),3))
     std_accuracies = str(round(np.std(accuracies),2))
-    print('\033[1m'+'The mean accuracy of classification in the test set is: ' + mean_accuracies + ' ± ' + std_accuracies+'\033[0m')
+    print('\n\033[1m'+'The mean accuracy of classification in the test set is: ' + mean_accuracies + ' ± ' +
+          std_accuracies+'\033[0m')
+    print('\033[1mRunning time for the 10 folds: %s seconds\033[0m' % round(time.time() - start_time, 4))
 
 # ----------------------------------------------------------------------------------------------------------------- Init
 if __name__ == '__main__':
