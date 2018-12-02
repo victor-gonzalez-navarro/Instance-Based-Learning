@@ -103,6 +103,7 @@ def main():
         metric = 'cosine'
     elif dist == 4:
         metric = 'canberra'
+
     print('\n'+'\033[1m'+'Which voting policy do you want to use?'+'\033[0m'+'\n1: Most voted solution\n2: Modified '
                                                                              'Plurality\n3: Borda Count')
     voting_policy = int(input('Insert a number between 1-3: '))
