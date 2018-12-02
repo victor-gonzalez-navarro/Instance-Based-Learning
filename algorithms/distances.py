@@ -46,7 +46,7 @@ def hvdm(a, b, trn_data, trn_labels):
             if ai == b'?' or bi == b'?':
                 distance = distance + 1
             elif ai != bi:
-                distance = distance + normalized_vdm1(trn_data, trn_labels, feature_number, ai, bi, num_clases)
+                distance = distance + normalized_vdm1(trn_data, trn_labels, feature_number, ai, bi, num_clases)**2
         feature_number = feature_number + 1
     return distance
 
