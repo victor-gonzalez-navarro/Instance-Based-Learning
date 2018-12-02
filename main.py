@@ -50,6 +50,9 @@ def main():
     df_aux = df_aux.fillna('nonna').values
     trn_tst_dic = trn_tst_idxs(df_aux, dataset)
 
+    # --------------------------------------------------------------------------------- Reading parameters from keyboard
+    k, metric, voting_policy = read_keyboard()
+
     # ------------------------------------------------------------------------------------------------------- Preprocess
     df1 = pd.DataFrame(ref_data)
     groundtruth_labels = df1[df1.columns[len(df1.columns) - 1]].values  # original labels in a numpy array
@@ -57,7 +60,7 @@ def main():
 
     data1 = df1.values  # original data in a numpy array without labels
     load = Preprocess()
-    data_x = load.preprocess_method(data1)
+    data_x = load.preprocess_method(data1, metric)
 
     # ---------------------------------------------------------------------------------------- Encode groundtruth labels
     le = LabelEncoder()
@@ -66,9 +69,6 @@ def main():
 
     accuracies = []
     fold_number = 0
-
-    # --------------------------------------------------------------------------------- Reading parameters from keyboard
-    k, metric, voting_policy = read_keyboard()
 
     # -------------------------------------------------------------------------------------------- Supervised classifier
     # Compute accuracy for each fold

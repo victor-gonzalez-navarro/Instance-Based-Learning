@@ -30,7 +30,7 @@ class ib2Algorithm():
         trn_data_keep = trn_data[0,:].reshape(1,len(trn_data[0,:]))
         labels_keep = np.array(labels[0]).reshape(1)
         for j in range(1,trn_data.shape[0]):
-            neighbor = np.argpartition([self.d(trn_data[j,:], trn_sample) for trn_sample in trn_data_keep], kth=0)[:1]
+            neighbor = np.argpartition([euclidean(trn_data[j,:], trn_sample) for trn_sample in trn_data_keep], kth=0)[:1]
             if labels[j] != labels_keep[neighbor]:
                 trn_data_concat = trn_data[j,:].reshape(1,len(trn_data[j,:]))
                 trn_data_keep = np.concatenate((trn_data_keep,trn_data_concat),axis=0)
@@ -43,8 +43,7 @@ class ib2Algorithm():
     def classify(self, tst_data):
         self.tst_labels = np.zeros((tst_data.shape[0], 1))
         for i in range(tst_data.shape[0]):
-            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_sample) for trn_sample in self.trn_data],
-                                            kth=self.k-1)[:self.k]
-            labels, counts = np.unique(self.trn_labels[neighbor_idxs], return_counts=True)
+            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_samp, self.trn_data, self.trn_labels)
+                            for trn_samp in self.trn_data], kth=self.k-1)[:self.k]
             order_labels = self.trn_labels[neighbor_idxs]
             self.tst_labels[i] = self.vp(order_labels, self.k)
