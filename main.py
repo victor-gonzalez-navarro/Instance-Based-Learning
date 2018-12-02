@@ -43,10 +43,9 @@ def main():
     dataset_name = 'hepatitis'
     dataset = arffs_dic[dataset_name]
 
-    # Use folder 0 of that particular dataset to find indices of train and test
+    # ------------------------------------------------------------------------------------ Compute indices for each fold
+    # Use folder 0 of that particular dataset to find indices of train and test for each fold
     ref_data = np.concatenate((dataset[0][0], dataset[0][1]), axis=0)
-
-    # --------------------------------------------------------------------------------- To compute indices for each fold
     df_aux = pd.DataFrame(ref_data)
     df_aux = df_aux.fillna('nonna').values
     trn_tst_dic = trn_tst_idxs(df_aux, dataset)

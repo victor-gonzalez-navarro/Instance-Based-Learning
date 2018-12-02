@@ -13,7 +13,7 @@ def euclidean(a, b):
         if type(ai) in [float, np.float64]:
             distance = distance + (ai-bi)**2
         else:
-            if ai != bi:
+            if ai != bi or ai == 'nonna' or bi == 'nonna':
                 distance = distance + 1
     return distance
 
@@ -27,3 +27,16 @@ def manhattan(a, b):
             if ai != bi:
                 distance = distance + 1
     return distance
+
+def canberra(a, b):
+    distance = 0
+    for ai, bi in zip(a,b):
+        if type(ai) in [float, np.float64]:
+            distance = distance + abs(ai-bi)/abs(ai+bi)
+        else:
+            if ai != bi or ai == 'nonna' or bi == 'nonna':
+                distance = distance + 1
+    return distance
+
+def hvdm(a, b):
+    pass

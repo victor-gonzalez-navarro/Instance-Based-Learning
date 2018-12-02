@@ -5,15 +5,19 @@ import numpy as np
 def read_keyboard():
     print('\n' + '\033[1m' + 'Which K value do you want to use?' + '\033[0m')
     k = int(input('Insert a number between 1-20: '))
-    print('\n' + '\033[1m' + 'Which distance function do you want to use?' + '\033[0m' + '\n1: Euclidean\n2: Manhattan')
-    dist = int(input('Insert a number between 1-2: '))
+    print('\n' + '\033[1m' + 'Which distance function do you want to use?' + '\033[0m' + '\n1: Euclidean\n2: Manhattan'
+          '\n3: Camberra\n4: HVDM')
+    dist = int(input('Insert a number between 1-4: '))
     if dist == 1:
         metric = 'euclidean'
     elif dist == 2:
         metric = 'manhattan'
-    print(
-        '\n' + '\033[1m' + 'Which voting policy do you want to use?' + '\033[0m' + '\n1: Most voted solution\n2: Modified '
-                                                                                   'Plurality\n3: Borda Count')
+    elif dist == 3:
+        metric = 'canberra'
+    elif dist == 4:
+        metric = 'hvdm'
+    print('\n' + '\033[1m' + 'Which voting policy do you want to use?' + '\033[0m' + '\n1: Most voted solution\n'
+                '2: Modified Plurality\n3: Borda Count')
     voting_policy = int(input('Insert a number between 1-3: '))
     print('')
     if voting_policy == 1:

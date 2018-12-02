@@ -1,11 +1,5 @@
-import numpy as np
-
-from algorithms.distances import euclidean
-from algorithms.distances import manhattan
-from algorithms.voting_policies import most_voted
-from algorithms.voting_policies import modified_plurality
-from algorithms.voting_policies import borda_count
-
+from algorithms.distances import *
+from algorithms.voting_policies import *
 
 
 class ib2Algorithm():
@@ -20,6 +14,11 @@ class ib2Algorithm():
             self.d = euclidean
         elif metric == 'manhattan':
             self.d = manhattan
+        elif metric == 'canberra':
+            self.d = canberra
+        elif metric == 'hvdm':
+            self.d = hvdm
+
         if voting_policy == 'most_voted':
             self.vp = most_voted
         elif voting_policy == 'modified_plurality':
