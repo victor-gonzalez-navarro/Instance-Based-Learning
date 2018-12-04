@@ -30,7 +30,8 @@ class ib2Algorithm():
         trn_data_keep = trn_data[0,:].reshape(1,len(trn_data[0,:]))
         labels_keep = np.array(labels[0]).reshape(1)
         for j in range(1,trn_data.shape[0]):
-            neighbor = np.argpartition([euclidean(trn_data[j,:], trn_sample) for trn_sample in trn_data_keep], kth=0)[:1]
+            neighbor = np.argpartition([euclidean(trn_data[j,:], trn_sample, 0, 0) for trn_sample in trn_data_keep],
+                                       kth=0)[:1]
             if labels[j] != labels_keep[neighbor]:
                 trn_data_concat = trn_data[j,:].reshape(1,len(trn_data[j,:]))
                 trn_data_keep = np.concatenate((trn_data_keep,trn_data_concat),axis=0)

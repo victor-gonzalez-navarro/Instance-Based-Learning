@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def euclidean(a, b):
+def euclidean(a, b, dummy1, dummy2):
     distance = 0
     for ai, bi in zip(a,b):
         if type(ai) in [float, np.float64]:
@@ -12,7 +12,7 @@ def euclidean(a, b):
     return distance
 
 
-def manhattan(a, b):
+def manhattan(a, b, dummy1, dummy2):
     distance = 0
     for ai, bi in zip(a,b):
         if type(ai) in [float, np.float64]:
@@ -23,7 +23,7 @@ def manhattan(a, b):
     return distance
 
 
-def canberra(a, b):
+def canberra(a, b, dummy1, dummy2):
     distance = 0
     for ai, bi in zip(a,b):
         if type(ai) in [float, np.float64]:
