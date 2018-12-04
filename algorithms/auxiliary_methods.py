@@ -6,7 +6,7 @@ def read_keyboard():
     print('\n' + '\033[1m' + 'Which K value do you want to use?' + '\033[0m')
     k = int(input('Insert a number between 1-20: '))
     print('\n' + '\033[1m' + 'Which distance function do you want to use?' + '\033[0m' + '\n1: Euclidean\n2: Manhattan'
-          '\n3: Camberra\n4: HVDM')
+          '\n3: Canberra\n4: HVDM')
     dist = int(input('Insert a number between 1-4: '))
     if dist == 1:
         metric = 'euclidean'
