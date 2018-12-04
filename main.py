@@ -17,9 +17,9 @@ def obtain_arffs(path):
     # Read all the datasets
     processed = []
     arffs_dic = {}
-    folds_dic = {}
 
     for folder in os.listdir(path):
+        folds_dic = {}
         for filename in os.listdir(path + folder + '/'):
             if re.match('(.*).fold.(\d*).(train|test).arff', filename) and filename not in processed:
                 row = int(re.sub('(\w*).(\d*).(\w*)', r'\2', filename))
