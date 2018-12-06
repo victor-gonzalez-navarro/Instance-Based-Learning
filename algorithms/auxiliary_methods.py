@@ -30,7 +30,7 @@ def read_keyboard():
     return(k, metric, voting_policy)
 
 
-def trn_tst_idxs(ref_data, dataset):
+def trn_tst_idxs(ref_data_dic, dataset):
     trn_tst_dic = {}
 
     for key, fold_data in dataset.items():
@@ -43,8 +43,8 @@ def trn_tst_idxs(ref_data, dataset):
         foldata_tst = foldata_tst.fillna('nonna')
         foldata_tst = foldata_tst.values
 
-        trn_idxs = [np.where((ref_data == sample).all(axis=1))[0][0] for sample in foldata_trn]
-        tst_idxs = [np.where((ref_data == sample).all(axis=1))[0][0] for sample in foldata_tst]
+        trn_idxs = [ref_data_dic[str(sample)] for sample in foldata_trn]
+        tst_idxs = [ref_data_dic[str(sample)] for sample in foldata_tst]
         trn_tst_dic[key] = []
         trn_tst_dic[key].append(trn_idxs)
         trn_tst_dic[key].append(tst_idxs)

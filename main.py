@@ -50,7 +50,11 @@ def main():
     ref_data = np.concatenate((dataset[0][0], dataset[0][1]), axis=0)
     df_aux = pd.DataFrame(ref_data)
     df_aux = df_aux.fillna('nonna').values
-    trn_tst_dic = trn_tst_idxs(df_aux, dataset)
+    ref_data_dic = {}
+    for i in range(df_aux.shape[0]):
+        ref_data_dic[str(df_aux[i, :])] = i
+
+    trn_tst_dic = trn_tst_idxs(ref_data_dic, dataset)
 
     # --------------------------------------------------------------------------------- Reading parameters from keyboard
     k, metric, voting_policy = read_keyboard()
