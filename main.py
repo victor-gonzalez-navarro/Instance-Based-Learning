@@ -42,7 +42,7 @@ def main():
     arffs_dic = obtain_arffs('./datasetsSelected/')
 
     # Extract an specific database
-    dataset_name = 'nursery'
+    dataset_name = 'sick'
     dataset = arffs_dic[dataset_name]
 
     # ------------------------------------------------------------------------------------ Compute indices for each fold
@@ -68,12 +68,15 @@ def main():
 
     data1 = df1.values  # original data in a numpy array without labels
     load = Preprocess()
-    data_x = load.preprocess_method(data1, metric)
+    # data_x = load.preprocess_method(data1, metric)
 
     # ---------------------------------------------------------------------------------------- Encode groundtruth labels
     le = LabelEncoder()
     le.fit(np.unique(groundtruth_labels))
     groundtruth_labels = le.transform(groundtruth_labels)
+
+    boolean_weigthing = False #weigthing
+    data_x = load.preprocess_method(data1, metric, groundtruth_labels, boolean_weigthing)
 
     accuracies = []
     fold_number = 0
