@@ -96,7 +96,7 @@ class Preprocess:
 
             # Delete categorical feature
             data = np.delete(data, features_del, 1)
-            wmethod = 4
+            wmethod = 3
 
             # ------------------W1: Mutual_info_classif-------------------------
             if wmethod == 1:
@@ -107,18 +107,17 @@ class Preprocess:
             elif wmethod == 2:
                 clf = ExtraTreesClassifier(n_estimators=50)
                 clf = clf.fit(data, groundtruth_labels)
-                a = clf.feature_importances_
-                data = data * a
+                # a = clf.feature_importances_
+                # data = data * a
+                model = SelectFromModel(clf, prefit=True)
+                data = model.transform(data) # selects some features, the n_estimator is a different parameter
 
             # ------------------W3: Relief--------------------------------------
             elif wmethod == 3:
-                r = relief.Relief(n_features=3)
-                r.fit(data, groundtruth_labels)
-                a = r.w_
-                data = data * a
-
-            # ------------------W3': Relief-------------------------------------
-            elif wmethod == 4:
+                # r = relief.Relief(n_features=3)
+                # r.fit(data, groundtruth_labels)
+                # a = r.w_
+                # data = data * a
                 r = relief.Relief(n_features=30)
                 data = r.fit_transform(data, groundtruth_labels)
 
