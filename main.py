@@ -97,7 +97,7 @@ def main():
         tst_data = data_x[tst_idxs]
         tst_labels = groundtruth_labels[tst_idxs]
 
-        knn = ib2Algorithm(k, metric, voting_policy)
+        knn = ib2Algorithm(k, metric, voting_policy) # knn = ib3Algorithm(k, metric); knn = ib1Algorithm(k, metric)
         knn.fit(trn_data, trn_labels)
         knn.classify(tst_data)
 

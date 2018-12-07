@@ -54,7 +54,7 @@ class ib3Algorithm():
         for j in range(1, trn_data.shape[0]):
 
             # Step 1: Obtain the similarities with each sample at the Content Description
-            similarities = [-self.d(trn_data[j, :], trn_sample) for trn_sample in trn_data_keep]
+            similarities = [-self.d(trn_data[j, :], trn_sample, 0, 0) for trn_sample in trn_data_keep]
 
             labels_count[labels[j]] += 1
 
@@ -117,8 +117,7 @@ class ib3Algorithm():
     def classify(self, tst_data):
         self.tst_labels = np.zeros((tst_data.shape[0], 1))
         for i in range(tst_data.shape[0]):
-            a = tst_data[i,:]
-            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_sample) for trn_sample in self.trn_data],
+            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_sample, 0, 0) for trn_sample in self.trn_data],
                                             kth=self.k-1)[:self.k]
             labels, counts = np.unique(self.trn_labels[neighbor_idxs], return_counts=True)
             self.tst_labels[i] = labels[np.argmax(counts)]

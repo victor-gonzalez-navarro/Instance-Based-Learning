@@ -26,7 +26,7 @@ class ib1Algorithm():
     def classify(self, tst_data):
         self.tst_labels = np.zeros((tst_data.shape[0], 1))
         for i in range(tst_data.shape[0]):
-            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_sample) for trn_sample in self.trn_data],
+            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_sample, 0, 0) for trn_sample in self.trn_data],
                                             kth=self.k-1)[:self.k]
 
             labels, counts = np.unique(self.trn_labels[neighbor_idxs], return_counts=True)
