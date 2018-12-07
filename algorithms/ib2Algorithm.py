@@ -18,7 +18,7 @@ class ib2Algorithm():
         elif metric == 'canberra':
             self.d = canberra
         elif metric == 'hvdm':
-            self.d = hvdm
+            self.d = hvdm_2
 
         if voting_policy == 'most_voted':
             self.vp = most_voted
@@ -56,9 +56,9 @@ class ib2Algorithm():
     def classify(self, tst_data):
         self.tst_labels = np.zeros((tst_data.shape[0], 1))
         for i in range(tst_data.shape[0]):
-            neighbor_idxs = np.argpartition([self.d(tst_data[i, :], trn_samp, self.trn_data, self.trn_labels)
-                                             for trn_samp in self.trn_data], kth=self.k - 1)[:self.k]#
-            #neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_samp, self.trn_labels, self.dic_feats)
-            #                for trn_samp in self.trn_data], kth=self.k-1)[:self.k]
+            #neighbor_idxs = np.argpartition([self.d(tst_data[i, :], trn_samp, self.trn_data, self.trn_labels)
+            #                                 for trn_samp in self.trn_data], kth=self.k - 1)[:self.k]#
+            neighbor_idxs = np.argpartition([self.d(tst_data[i,:], trn_samp, self.trn_labels, self.dic_feats)
+                            for trn_samp in self.trn_data], kth=self.k-1)[:self.k]
             order_labels = self.trn_labels[neighbor_idxs]
             self.tst_labels[i] = self.vp(order_labels, self.k)
