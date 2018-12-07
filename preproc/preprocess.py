@@ -98,7 +98,7 @@ class Preprocess:
 
             # Delete categorical feature
             data = np.delete(data, features_del, 1)
-            wmethod = 3
+            wmethod = 1
 
             # ------------------W1: Mutual_info_classif-------------------------
             if wmethod == 1:

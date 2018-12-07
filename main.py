@@ -75,8 +75,13 @@ def main():
     le.fit(np.unique(groundtruth_labels))
     groundtruth_labels = le.transform(groundtruth_labels)
 
-    boolean_weigthing = False #weigthing
-    data_x = load.preprocess_method(data1, metric, groundtruth_labels, boolean_weigthing)
+    boolean_weighting = False # weighting
+    if boolean_weighting:
+        print('A feature selection method has been used (boolean_weighting = True)\n')
+    else:
+        print('No feature selection method has been used (boolean_weighting = False)\n')
+
+    data_x = load.preprocess_method(data1, metric, groundtruth_labels, boolean_weighting)
 
     accuracies = []
     fold_number = 0
