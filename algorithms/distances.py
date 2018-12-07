@@ -90,7 +90,7 @@ def normalized_vdm1_2(feature_number, ai, bi, num_classes, dic_feats):
         for c in range(num_classes):
             Naxc = Naxc + dic_feats[feature_number][ai][c]
             Nayc = Nayc + dic_feats[feature_number][bi][c]
-            aux_distance = aux_distance + abs((Naxc/Nax)-(Nayc/Nay))
+            aux_distance = aux_distance + abs((Naxc/(Nax+0.0001))-(Nayc/(Nay+0.0001)))
     else:
         Nay = sum(dic_feats[feature_number][bi].values())
         Nayc = 0.0;
