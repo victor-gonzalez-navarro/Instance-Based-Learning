@@ -5,6 +5,8 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.feature_selection import mutual_info_classif
 import sklearn_relief as relief
+from sklearn.feature_selection import GenericUnivariateSelect
+
 
 
 
@@ -100,8 +102,10 @@ class Preprocess:
 
             # ------------------W1: Mutual_info_classif-------------------------
             if wmethod == 1:
-                a = mutual_info_classif(data, groundtruth_labels)
-                data = data * a
+                # a = mutual_info_classif(data, groundtruth_labels)
+                # data = data * a
+                trans = GenericUnivariateSelect(score_func=mutual_info_classif, mode='percentile', param=50)
+                data = trans.fit_transform(data, groundtruth_labels)
 
             # ------------------W2: Tree-based feature selection----------------
             elif wmethod == 2:
