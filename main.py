@@ -42,7 +42,7 @@ def main():
     arffs_dic = obtain_arffs('./datasetsSelected/')
 
     # Extract an specific database
-    dataset_name = 'sick'
+    dataset_name = 'sick' #sick # nursery
     dataset = arffs_dic[dataset_name]
 
     # ------------------------------------------------------------------------------------ Compute indices for each fold
